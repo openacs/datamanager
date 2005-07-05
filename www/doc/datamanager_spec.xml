@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<book>
+  <title>Data Manager</title>
+
+  <chapter>
+    <title>Requirements</title>
+
+    <section>
+      <title>Introduction</title>
+
+      <para>This document outlines the requirements for the Data Manager
+      application built on the ACS 5.2 platform.</para>
+    </section>
+
+    <section>
+      <title>Vision Statement</title>
+
+      <para>Most of object implied in the learning process can and should be
+      reused, may be another time or may be in another computer. Data Manager
+      package allows you to move .LRN objects from one class of community to
+      another one. It also provides de possibility of export an object to a
+      file and import it into another .LRN instance.</para>
+
+      <para>Once a class or community is designed, this is, taks to be
+      resolved and objects that takes part into this tasks, next step is to
+      put all this events into the plattform. Obviously, it must be done by
+      the administrator or the professor, while the student is just an
+      spectator.</para>
+    </section>
+
+    <section>
+      <title>Historical Considerations</title>
+
+      <para>Since the aim of this package is to move and copy objects created
+      by another packages, and to do this from a unique interface, here is a
+      brief list of several objects and the task allowed by them.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Faqs: A faq can be disabled and enabled later. When a faq is
+          disabled it does not appear in the community home, but it continue
+          belonging to this community. You can also delete a Faq, but with
+          this you don't delete any data from the database and neither you can
+          recover the erased object.</para>
+        </listitem>
+
+        <listitem>
+          <para>News: You can tag a New as archived, but it does not means
+          that the object has been moved or deleted.</para>
+        </listitem>
+
+        <listitem>
+          <para>Forums: As wells as faqs, a forum can be disabled and enabled.
+          A forum cannot be deleted.</para>
+        </listitem>
+
+        <listitem>
+          <para>Assessment: The assessment package provides de functionality
+          to export and import to an QTI file.</para>
+        </listitem>
+
+        <listitem>
+          <para>User portlet:</para>
+        </listitem>
+
+        <listitem>
+          <para>File Storage Folders: A single file can be moved, copied and
+          deleted. A folder can be deleted. When a item is deleted, it cannot
+          be recovered.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Aplication Overview</title>
+
+      <para>Datamanager package does not create new tables into data model,
+      because it does not need any persistent data. The main task of the
+      aplication is to provide a unique interface to move and copy objects,
+      which implies that the database values must be modified.</para>
+
+      <para>That means: this package does not need its own tables in the data
+      model, but it has the functionality of changing the values of tables
+      created for another packages.</para>
+    </section>
+
+    <section>
+      <title>Use Cases and Scenarios</title>
+
+      <para>Involved roles are administrator and profesor, and tipical use
+      cases in which datamanager can be used are:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>A profesor has done a mistake, so he has created an object
+          into another community. He does not want just to delete this object,
+          he would want to move it to the correct community.</para>
+        </listitem>
+
+        <listitem>
+          <para>An object has been created, but it has been an error. The
+          tipical procedure is to delete this wrong object or to move it to a
+          invisible place.</para>
+        </listitem>
+
+        <listitem>
+          <para>The period of a class has been finished, and the profesor want
+          to reuse the objects in the next period or class. Here, the desired
+          issue is to be able of copying objects, so the ended class can be
+          archived without changes and the new one has all the required
+          contents. Tipically, only the object root is needed. This is,
+          avoiding to copy all the students comments. Despite of this, the two
+          scenarios can take place.</para>
+        </listitem>
+
+        <listitem>
+          <para>The platform will be instaled in a newer computer, or a new
+          release of the platform leads the administrator to a migration of
+          the system. In this case, the administrator can export objects to an
+          xml file and later he will import them into the new instance of the
+          platform.</para>
+        </listitem>
+
+        <listitem>
+          <para>A platform has a really interesting object, so it is desirable
+          to use this objects into another platforms, or just to store it into
+          a file and place this file into a file server. With this, you allow
+          another profesors to improve his own platforms using your
+          interesting contents. In this case, the profesor will export the
+          object to an XML file.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>User Interfaces</title>
+
+      <para>Data Manager package only can be used by professors and
+      administrators, so there are two different interfaces. Both of them are
+      linked form the administration page (/dotlrn/control-panel).</para>
+
+      <section id="professor_interface">
+        <title>Professor Interface</title>
+
+        <para>A professor is able to move, copy, delete, export and import
+        objects.</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>Move</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Provide a list of objects from which the professor has
+                  permissions.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a way to select objects from this list.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a list of communities or classes where the
+                  object will be moved.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Copy</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Provide a list of objects from which the professor has
+                  permissions.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a way to select objects from this list.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a list of communities or classes where the
+                  object will be copied.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.no </para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Delete</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Provide a list of objects from which the professor has
+                  permissions.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a way to select objects from this list.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Export</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Provide a list of objects from which the professor has
+                  permissions.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a way to select objects from this list.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Allow to choose the filename.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Import</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Allow to select a XML local file.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a list of communities or classes where the
+                  object will be imported.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+
+      <section>
+        <title>Administrator Interface</title>
+
+        <para>All the requirements listed at <xref
+        linkend="professor_interface" />, and the capability to recover data
+        from the Trash.</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>Recover</term>
+
+            <listitem>
+              <orderedlist>
+                <listitem>
+                  <para>Provide a list of objects stored in the Trash.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a way to select objects from this list.</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a list of communities or classes where the
+                  object will be stored..</para>
+                </listitem>
+
+                <listitem>
+                  <para>Provide a confirmation page.</para>
+                </listitem>
+              </orderedlist>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Desing tips</title>
+
+    <section>
+      <title>Essentials</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>User directory: /datamanager/</para>
+        </listitem>
+
+        <listitem>
+          <para>TCL procedures: /datamanager/tcl/datamanager-procs.tcl</para>
+        </listitem>
+
+        <listitem>
+          <para>This document:
+          /datamangar/www/doc/datamanager_spec.html</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Introduccition</title>
+
+      <para>Data Manager package aims to provide a centralized interface which
+      allow users to move, copy, export and import objects.</para>
+
+      <para>Main tips related with the aplication desing are exposed
+      here.</para>
+    </section>
+
+    <section>
+      <title>API</title>
+
+      <para>The API will be defined during the development phase.</para>
+    </section>
+
+    <section>
+      <title>Acceptance Test</title>
+
+      <para>Regresion test will be implemented to check all the
+      functionalities.</para>
+    </section>
+
+    <section>
+      <title>Future Improvements</title>
+
+      <para>The first release is designed to work with forums, faqs,
+      assessment, news, folders and user portlets. </para>
+
+      <para>Next releases will implement the same features for all the objects
+      in the platform.</para>
+    </section>
+
+    <section>
+      <title>Authors</title>
+
+      <para>Please, mail suggestions or bug reports to Luis de la Fuente
+      (<email>lfuente@it.uc3m.es</email>).</para>
+    </section>
+
+    <section>
+      <title>Revision History</title>
+
+      <informaltable>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>Document revision</entry>
+
+              <entry>Action Taken</entry>
+
+              <entry>Date(dd/mm/yyyy)</entry>
+
+              <entry>Author</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>0.1</entry>
+
+              <entry>Creation</entry>
+
+              <entry>24/06/2005</entry>
+
+              <entry>Luis de la Fuente</entry>
+            </row>
+
+            <row>
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+  </chapter>
+</book>
