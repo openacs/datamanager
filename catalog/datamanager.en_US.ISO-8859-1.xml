@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="datamanager" package_version="0.1d" locale="en_US" charset="ISO-8859-1">
 
-  <msg key="pretty_name">Datamanager</msg>
+  <msg key="_Not">Not implemented yet</msg>
+  <msg key="Choose_Destination">Choose Destination</msg>
+  <msg key="Class">Class</msg>
+  <msg key="Community">Community</msg>
+  <msg key="Confirmation">Confirmation</msg>
+  <msg key="Copy">Copy</msg>
+  <msg key="Delete">Delete</msg>
+  <msg key="Move">Move</msg>
+  <msg key="Move_1">Move object</msg>
+  <msg key="Name">Name</msg>
+  <msg key="pretty_name">Data Manager</msg>
+  <msg key="Selected">Selected</msg>
+  <msg key="Sorry">Sorry, you can not move this object</msg>
+  <msg key="Subgroup_of">Subgroup of</msg>
+  <msg key="to">to community</msg>
+  <msg key="Type">Type</msg>
 </message_catalog>
