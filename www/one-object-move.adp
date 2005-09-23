@@ -6,8 +6,10 @@
 
 <p> #datamanager.Move_1# <b>@object_name@</b> #datamanager.to#</p>
 
-<form name="input" action="@move_object_url@" method="get">
+<form name="input" action="@object_url@" method="get">
 <input type="hidden" name="object_id" value="@object_id@">
+<input type="hidden" name="action" value="@action@">
+
 <if @communities:rowcount@ eq 0>
     <p>#datamanager.Sorry#
 </if>
