@@ -10,8 +10,19 @@ ad_proc -public -callback datamanager::move_faq {
 } {
 }
 
+ad_proc -public -callback datamanager::copy_faq {
+     -object_id:required
+     -selected_community:required
+} {
+}
 
 ad_proc -public -callback datamanager::move_forum {
+     -object_id:required
+     -selected_community:required
+} {
+}
+
+ad_proc -public -callback datamanager::copy_forum {
      -object_id:required
      -selected_community:required
 } {
@@ -23,7 +34,20 @@ ad_proc -public -callback datamanager::move_new {
 } {
 }
 
+ad_proc -public -callback datamanager::copy_new {
+     -object_id:required
+     -selected_community:required
+} {
+}
+
+
 ad_proc -public -callback datamanager::move_static {
+     -object_id:required
+     -selected_community:required
+} {
+}
+
+ad_proc -public -callback datamanager::copy_static {
      -object_id:required
      -selected_community:required
 } {
@@ -35,7 +59,19 @@ ad_proc -public -callback datamanager::move_assessment {
 } {
 }
 
+ad_proc -public -callback datamanager::copy_assessment {
+     -object_id:required
+     -selected_community:required
+} {
+}
+
 ad_proc -public -callback datamanager::move_folder {
+     -object_id:required
+     -selected_community:required
+} {
+}
+
+ad_proc -public -callback datamanager::copy_folder {
      -object_id:required
      -selected_community:required
 } {

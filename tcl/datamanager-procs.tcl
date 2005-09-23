@@ -5,6 +5,129 @@ ad_library {
     @creation-date 14 June 2005
 }
  
-namespace eval datamanager {}
+namespace eval datamanager {
 
+# ejemplo de uso de ad_proc    
+#    ad_proc -public add_self_to_page {
+#	{-portal_id:required}
+#	{-package_id:required}
+#    } {
+#	Adds a static PE to the given page
+#    } {
+#        ns_log notice "static_portlet::add_self_to_page - Don't call me. Use static_portal_content:: instead"
+#        error
+#    }
 
+    ad_proc -public get_object_type {
+        -object_id:required
+    } {
+        Get the selected object's type
+    } { 
+        db_1row get_object_type {}
+        return $object_type
+    }
+
+    ad_proc -public get_object_data {
+        -object_type:required
+        -object_id:required
+    } {
+        Get data concerned about the object with which datamanager is working
+    } {
+        switch $object_type {
+            "faq" {
+                #get faq data
+                db_1row get_data_faq {}
+                set object_url use-faq
+                set object_type dotlrn_faq
+            }
+            "forums_forum" {
+                db_1row get_data_forum {}
+                set object_url use-forum
+                set object_type dotlrn_forums  
+            }
+            "news" {
+
+                db_1row get_data_news {}
+                set object_url use-news
+                set object_type dotlrn_news  
+            }
+            "static_portal_content" {
+                #
+                db_1row get_data_static_portal {}
+                set object_url use-static-portlet
+                set object_type dotlrn_static
+            }
+            "as_assessments" {
+                #
+                db_1row get_data_assessment {}
+                set object_url use-assessment
+                set object_type dotlrn_assessment
+            }
+            "content_folder" {
+                #
+                db_1row get_data_folder {}
+                set object_url use-folder
+                set object_type dotlrn_fs
+            }
+
+            default {
+                set object_name "[_ datamanager._Not]"
+                set object_url ""
+                set object_type ""                  
+            }
+        }
+        set object_data [list $object_name $object_url $object_type]
+        return $object_data
+    }
+    
+    ad_proc -public get_available_communities {
+        -object_type:required
+         } {
+             Get the list of communities, subgroups or classes where an object can be moved
+         } {
+
+#create the template_list
+            template::list::create \
+                -name available_communities \
+                -multirow communities \
+                -key community_id \
+                -elements {
+                selected {
+                    label {[_ datamanager.Selected]}
+                    display_template {
+                    <input name="selected_community" value="@communities.community_id@" type="radio">
+                    }
+                }
+                community_id {
+                    hide_p 1
+                }
+                
+                community_type {
+                    label {[_ datamanager.Type]}
+                    display_col type
+                }
+                community_name {
+                    label {[_ datamanager.Name]}
+                    display_col name
+                }
+                }
+                          
+                set comm_id [dotlrn_community::get_community_id]
+                
+                db_multirow -extend { type } communities get_data_communities {} {
+                if {$community_type == "dotlrn_club"} {
+                    set type "[_ datamanager.Community]"
+                } elseif {$community_type == "dotlrn_community"} {
+                    db_1row get_parent_community_id {}
+                    set type "[_ datamanager.Subgroup_of]"
+                    append type $pretty_name
+                } else  {         
+                    set type "[_ datamanager.Class]"
+                }
+            }
+
+                return available_communities
+         }
+
+    
+}
