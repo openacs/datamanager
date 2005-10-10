@@ -113,6 +113,16 @@ namespace eval datamanager {
                 }
                           
                 set comm_id [dotlrn_community::get_community_id]
+
+                set communities_list  [db_list get_list_of_dest_communities {}]
+                set communities_list_p [list]
+                
+                foreach community $communities_list {
+                    if { [dotlrn::user_can_admin_community_p -community_id $community] } {
+                        lappend communities_list_p $community
+                    }                     
+                }
+
                 
                 db_multirow -extend { type } communities get_data_communities {} {
                 if {$community_type == "dotlrn_club"} {
@@ -129,5 +139,25 @@ namespace eval datamanager {
                 return available_communities
          }
 
-    
+    ad_proc -public get_trash_id {
+    } {
+        Get the trash identifier 
+    } { 
+        db_1row get_id {}
+        return $trash_id
+    }
+
+    ad_proc -public get_trash_package_id {
+        {-community_id}
+    } {
+        Get the trash packageidentifier 
+    } { 
+
+        if {[info exist community_id] == 0 } {
+           set community_id [dotlrn_community::get_community_id]
+        }         
+        
+        db_1row get_package_id {}
+        return $trash_package_id
+    }   
 }

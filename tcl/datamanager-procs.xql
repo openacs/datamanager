@@ -59,10 +59,9 @@
 </querytext>
 </fullquery>
 
-
-<fullquery name="datamanager::get_available_communities.get_data_communities">
+<fullquery name="datamanager::get_available_communities.get_list_of_dest_communities">
 <querytext>
-        select community_id, community_type, pretty_name as name, parent_community_id 
+    select community_id 
 	from dotlrn_communities_all 
 	where community_id <> :comm_id and 
         (parent_community_id <> community_id or parent_community_id is null) and 
@@ -74,6 +73,14 @@
 </querytext>
 </fullquery>
 
+<fullquery name="datamanager::get_available_communities.get_data_communities">
+<querytext>
+        select community_id, community_type, pretty_name as name, parent_community_id 
+	from dotlrn_communities_all 
+	where community_id in ([join $communities_list_p ","]) 
+    </querytext>
+</fullquery>
+
 <fullquery name="datamanager::get_available_communities.get_parent_community_id">
 <querytext>
         select pretty_name 
@@ -81,5 +88,21 @@
 	where community_id = :parent_community_id
 </querytext>
 </fullquery>
+
+<fullquery name="datamanager::get_trash_id.get_id">
+<querytext>
+     SELECT object_id as trash_id
+    FROM acs_objects
+    WHERE object_type='trash' and title IS NULL and context_id IS NULL and package_id IS NULL;
+</querytext>
+</fullquery>
+
+    <fullquery name="datamanager::get_trash_package_id.get_package_id">
+    <querytext>
+    SELECT b.object_id as trash_package_id 
+    FROM acs_objects as a,acs_objects as b  
+    WHERE a.context_id=:community_id and a.object_type='apm_package' and a.object_id=b.context_id and b.title='Datamanager';
+    </querytext>
+    </fullquery>
 
 </queryset>

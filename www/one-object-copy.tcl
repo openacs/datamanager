@@ -12,6 +12,9 @@ ad_page_contract {
 set context [list [_ datamanager.Object_Copy]]
 set title "[_ datamanager.Choose_Destination]"    
 
+#only administrator or professor must be allowed to enter this page
+dotlrn::require_user_admin_community  -community_id [dotlrn_community::get_community_id]
+
 set object_type [datamanager::get_object_type -object_id $object_id]
 set object_data [datamanager::get_object_data -object_type $object_type -object_id $object_id]
 

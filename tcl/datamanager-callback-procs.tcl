@@ -16,6 +16,12 @@ ad_proc -public -callback datamanager::copy_faq {
 } {
 }
 
+ad_proc -public -callback datamanager::delete_faq {
+     -object_id:required
+} {
+}
+
+
 ad_proc -public -callback datamanager::move_forum {
      -object_id:required
      -selected_community:required
@@ -28,6 +34,12 @@ ad_proc -public -callback datamanager::copy_forum {
 } {
 }
 
+ad_proc -public -callback datamanager::delete_forum {
+     -object_id:required
+} {
+}
+
+
 ad_proc -public -callback datamanager::move_new {
      -object_id:required
      -selected_community:required
@@ -37,6 +49,11 @@ ad_proc -public -callback datamanager::move_new {
 ad_proc -public -callback datamanager::copy_new {
      -object_id:required
      -selected_community:required
+} {
+}
+
+ad_proc -public -callback datamanager::delete_new {
+     -object_id:required
 } {
 }
 
@@ -53,6 +70,12 @@ ad_proc -public -callback datamanager::copy_static {
 } {
 }
 
+ad_proc -public -callback datamanager::delete_static {
+     -object_id:required
+} {
+}
+
+
 ad_proc -public -callback datamanager::move_assessment {
      -object_id:required
      -selected_community:required
@@ -65,6 +88,12 @@ ad_proc -public -callback datamanager::copy_assessment {
 } {
 }
 
+ad_proc -public -callback datamanager::delete_assessment {
+     -object_id:required
+} {
+}
+
+
 ad_proc -public -callback datamanager::move_folder {
      -object_id:required
      -selected_community:required
@@ -76,3 +105,9 @@ ad_proc -public -callback datamanager::copy_folder {
      -selected_community:required
 } {
 }
+
+ad_proc -public -callback datamanager::delete_folder {
+     -object_id:required
+} {
+}
+

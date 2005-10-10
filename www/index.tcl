@@ -6,17 +6,26 @@ ad_page_contract {
 } -query {
 } -properties {
 }
+set context [list]
+set community_id [dotlrn_community::get_community_id]
+
+
+#only administrator or professor must be allowed to enter this page
+dotlrn::require_user_admin_community  -community_id $community_id
 
 
 # prevent this page from being called when not in a community
 # (i.e. the main dotlrn instance
-if {[empty_string_p [dotlrn_community::get_community_id]]} {
+if {[empty_string_p $community_id]]} {
     ad_returnredirect "[dotlrn::get_url]"
 }
 
-set context [list]
-set community_id [dotlrn_community::get_community_id]
 db_1row datamanager::select_folder_package_id {}
+set prueba_id [dotlrn_community::get_applet_package_id -community_id $community_id -applet_key 'dotlrn_fs']
+
+nslog Notice "$package_id $prueba_id"
+
+
 set root_folder_id [fs::get_root_folder -package_id $package_id]
 
 template::list::create \
