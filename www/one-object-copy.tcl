@@ -24,5 +24,5 @@ set object_type [lindex $object_data 2]
 
 set action "copy"
 
-set available_communities [datamanager::get_available_communities -object_type $object_type]
+set available_communities [datamanager::get_available_communities -object_type $object_type -action_type $action]
 

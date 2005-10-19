@@ -65,9 +65,8 @@
                    tree_right(ci2.tree_sortkey)
         and ci2.item_id=:root_folder_id
         and ci1.item_id=cf.folder_id
-        and ao.object_id=cf.folder_id
-
-       
+        and ao.object_id=cf.folder_id       
 </querytext>
 </fullquery>
+
 </queryset>

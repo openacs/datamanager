@@ -82,35 +82,66 @@ namespace eval datamanager {
     
     ad_proc -public get_available_communities {
         -object_type:required
+        {-action_type "move"}
          } {
              Get the list of communities, subgroups or classes where an object can be moved
          } {
 
+
+
+if {$action_type eq "move"} {
+    set bulk_actions {}
+    set elements {
+                    selected {
+                        label {[_ datamanager.Selected]}
+                        display_template {
+                        <input name="selected_community" value="@communities.community_id@" type="radio">
+                        }
+                    }
+                    community_id {
+                        hide_p 1
+                    }
+                    
+                    community_type {
+                        label {[_ datamanager.Type]}
+                        display_col type
+                    }
+                    community_name {
+                        label {[_ datamanager.Name]}
+                        display_col name
+                    }
+                    }
+} else {
+    set bulk_actions {Copy do-it {Copy cheched objects}}
+    set elements {
+                    community_id {
+                        hide_p 1
+                    }
+                    
+                    community_type {
+                        label {[_ datamanager.Type]}
+                        display_col type
+                    }
+                    community_name {
+                        label {[_ datamanager.Name]}
+                        display_col name
+                    }
+                    }
+}
+
+
+ 
+
+
+
+             
 #create the template_list
             template::list::create \
                 -name available_communities \
                 -multirow communities \
                 -key community_id \
-                -elements {
-                selected {
-                    label {[_ datamanager.Selected]}
-                    display_template {
-                    <input name="selected_community" value="@communities.community_id@" type="radio">
-                    }
-                }
-                community_id {
-                    hide_p 1
-                }
-                
-                community_type {
-                    label {[_ datamanager.Type]}
-                    display_col type
-                }
-                community_name {
-                    label {[_ datamanager.Name]}
-                    display_col name
-                }
-                }
+                -bulk_actions $bulk_actions \
+                -elements $elements
                           
                 set comm_id [dotlrn_community::get_community_id]
 
