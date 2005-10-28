@@ -4,7 +4,7 @@
 <property name="context">@context;noquote@</property>
 <br>
 
-<p> #datamanager.Move_1# <b>@object_name@</b> #datamanager.to#</p>
+<p>Move objects</p><p><b>@object_name@</b></p><p>#datamanager.to#</p>
 
 <form name="input" action="@object_url@" method="get">
 <input type="hidden" name="object_id" value="@object_id@">

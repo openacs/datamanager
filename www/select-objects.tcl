@@ -13,9 +13,6 @@ switch $object_type {
     folder { 
         set object_url manage-object4
     }
-    forum { 
-        set object_url manage-object3
-    }
     new { 
         set object_url manage-object2
     }
