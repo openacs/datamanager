@@ -11,6 +11,13 @@ ad_page_contract {
 set community_id [dotlrn_community::get_community_id]
 set query_name [join [list select $object_type] "_"]
 
+if { $object_type eq "folder" } {
+   set display_template {<div style="text-indent: @usable_objects.level_num@em;">@usable_objects.object_name@</div>}
+   db_1row select_folder_package_id {}
+   set root_folder_id [fs::get_root_folder -package_id $package_id]
+} else { 
+   set display_template {}
+}
 
   template::list::create\
       -name usable_objects \
@@ -20,6 +27,7 @@ set query_name [join [list select $object_type] "_"]
       -elements {
         object_name {
             label "Name"
+            display_template $display_template
         }
         creation_user {
             label "Creation user"

@@ -10,9 +10,6 @@ ad_page_contract {
 set context [list]
 
 switch $object_type {
-    folder { 
-        set object_url manage-object4
-    }
     new { 
         set object_url manage-object2
     }
