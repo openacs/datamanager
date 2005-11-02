@@ -52,6 +52,23 @@ if {$object_type eq "dotlrn_forums"} {
                                 [export_vars -base one-object-copy {object_id {mode "all"}}]\
                                 "Select the forums with the threads and replies"]
     set mode_list [concat $empty_button $threads_button $all_button]
+} elseif { $object_type eq "dotlrn_fs"} {
+     if {$mode == ""} {
+        set mode "both"
+    }
+    set empty_button [list "Empty" \
+                                    [export_vars -base one-object-copy {object_id {mode "empty"}}] \
+                                    "Copy the folders without files and subfolders"]
+    set subfolders_button [list "Subfolders" \
+                                    [export_vars -base one-object-copy {object_id {mode "subfolders"}}] \
+                                    "Copy the folders and its subfolders, but no files"]
+    set files_button [list "Files" \
+                                    [export_vars -base one-object-copy {object_id {mode "files"}}] \
+                                    "Copy the folders and its files, but no subfolders"]
+    set both_button [list "Files and subfolders" \
+                                    [export_vars -base one-object-copy {object_id {mode "both"}}] \
+                                    "Copy the folders with both files and subfolders"]
+     set mode_list [concat $empty_button $subfolders_button $files_button $both_button]                                   
 } else {
     set mode_list {}
 }

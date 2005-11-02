@@ -37,36 +37,36 @@ namespace eval datamanager {
             "faq" {
                 #get faq data
                 db_1row get_data_faq {}
-                set object_url use-faq
+                set object_url use-dotlrn_faq
                 set object_type dotlrn_faq
             }
             "forums_forum" {
                 db_1row get_data_forum {}
-                set object_url use-forum
+                set object_url use-dotlrn_forums
                 set object_type dotlrn_forums  
             }
             "news" {
 
                 db_1row get_data_news {}
-                set object_url use-news
+                set object_url use-dotlrn_news
                 set object_type dotlrn_news  
             }
             "static_portal_content" {
                 #
                 db_1row get_data_static_portal {}
-                set object_url use-static-portlet
+                set object_url use-dotlrn_static
                 set object_type dotlrn_static
             }
             "as_assessments" {
                 #
                 db_1row get_data_assessment {}
-                set object_url use-assessment
+                set object_url use-dotlrn_assessment
                 set object_type dotlrn_assessment
             }
             "content_folder" {
                 #
                 db_1row get_data_folder {}
-                set object_url use-folder
+                set object_url use-dotlrn_fs
                 set object_type dotlrn_fs
             }
 
@@ -82,23 +82,27 @@ namespace eval datamanager {
     
     ad_proc -public get_available_communities {
         -object_type:required
+        -bulk_action_export_vars
+        -mode_list
         {-action_type "move"}
          } {
              Get the list of communities, subgroups or classes where an object can be moved
          } {
 
-
+set copy_url [join [list use $object_type] "-"]
 
 if {$action_type eq "move"} {
     set bulk_actions {}
+    set bulk_action_export_vars {}
+    set actions {}
     set elements {
                     selected {
                         label {[_ datamanager.Selected]}
                         display_template {
-                        <input name="selected_community" value="@communities.community_id@" type="radio">
+                        <input name="dest_community_id" value="@communities.dest_community_id@" type="radio">
                         }
                     }
-                    community_id {
+                    dest_community_id {
                         hide_p 1
                     }
                     
@@ -112,9 +116,10 @@ if {$action_type eq "move"} {
                     }
                     }
 } else {
-    set bulk_actions {Copy do-it {Copy cheched objects}}
+    set bulk_actions [list Copy $copy_url {Copy chequed objects}]
+    set actions $mode_list
     set elements {
-                    community_id {
+                    dest_community_id {
                         hide_p 1
                     }
                     
@@ -129,18 +134,26 @@ if {$action_type eq "move"} {
                     }
 }
 
+set my_bulk_action_export_vars [list]
+foreach element $bulk_action_export_vars {
 
- 
+    set [lindex $element 0] [lindex $element 1]
+
+    lappend my_bulk_action_export_vars [lindex $element 0]
+}
+set action $action_type
 
 
 
-             
+
 #create the template_list
             template::list::create \
                 -name available_communities \
                 -multirow communities \
-                -key community_id \
+                -key dest_community_id \
+                -actions $actions\
                 -bulk_actions $bulk_actions \
+                -bulk_action_export_vars [concat $my_bulk_action_export_vars action]\
                 -elements $elements
                           
                 set comm_id [dotlrn_community::get_community_id]

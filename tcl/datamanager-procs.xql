@@ -75,7 +75,7 @@
 
 <fullquery name="datamanager::get_available_communities.get_data_communities">
 <querytext>
-        select community_id, community_type, pretty_name as name, parent_community_id 
+        select community_id as dest_community_id, community_type, pretty_name as name, parent_community_id 
 	from dotlrn_communities_all 
 	where community_id in ([join $communities_list_p ","]) 
     </querytext>

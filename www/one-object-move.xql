@@ -80,4 +80,25 @@
 </querytext>
 </fullquery>
 
+<fullquery name="get_tree_sortkey">
+<querytext>
+    select tree_sortkey,item_id,tree_level(tree_sortkey) as tree_level 
+    from cr_items 
+    where item_id in ([join $object_id ","])
+    order by item_id
+</querytext>
+</fullquery>
+
+<fullquery name="get_ancestors_p1">
+<querytext>
+select tree_ancestor_p(:c_item,:tree_sortkey)
+</querytext>
+</fullquery>
+
+<fullquery name="get_ancestors_p2">
+<querytext>
+select tree_ancestor_p(:tree_sortkey,:c_item)
+</querytext>
+</fullquery>
+
 </queryset>

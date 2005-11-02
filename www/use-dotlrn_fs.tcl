@@ -7,6 +7,7 @@ ad_page_contract {
      object_id:notnull
      action:notnull
      dest_community_id:multiple
+     {mode: "both"}
 } -properties {
 }
 
@@ -29,7 +30,7 @@ switch $action {
             foreach object $object_id { 
                  #only administrator or professor must be allowed to enter this page
                 dotlrn::require_user_admin_community  -community_id $community
-                callback -catch datamanager::copy_folder -object_id $object -selected_community $community
+                callback -catch datamanager::copy_folder -object_id $object -selected_community $community -mode $mode
             }
          }
     }
