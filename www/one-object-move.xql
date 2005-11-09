@@ -101,4 +101,13 @@ select tree_ancestor_p(:tree_sortkey,:c_item)
 </querytext>
 </fullquery>
 
+<fullquery name="get_departments_list">
+<querytext>
+    SELECT dct.pretty_name, dd.department_key
+    FROM dotlrn_departments dd, dotlrn_community_types dct
+    WHERE dct.community_type=dd.department_key
+</querytext>
+</fullquery>
+
+
 </queryset>

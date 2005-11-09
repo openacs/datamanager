@@ -4,16 +4,21 @@ ad_page_contract {
     @creation_date 2005-07-05
     
 } -query {
-    object_id:integer,notnull,multiple
+    object_id:multiple
+    {department_key: "all"}
 } -properties {
 }
-
 set context [list [_ datamanager.Object_Move]]
 set title "[_ datamanager.Choose_Destination]"    
 
+
 #only administrator or professor must be allowed to enter this page
 dotlrn::require_user_admin_community  -community_id [dotlrn_community::get_community_id]
-
+if {[llength $object_id] == 1} {
+    if {[llength [lindex $object_id 0]] > 1} {
+        set object_id [lindex $object_id 0]
+    }
+}
 
 if { [llength $object_id] > 1 } {
     set descendant_ids [list]
@@ -35,14 +40,15 @@ if { [llength $object_id] > 1 } {
         if {$descendant_p eq "f"} {lappend ancestors_ids $item_id} else {lappend descendant_ids $item_id}
     }
         lappend checked_items $tree_sortkey
-    }
-}
+    } if_no_rows {set ancestors_ids $object_id}
+} else { set ancestors_ids $object_id }
 
 set object_data [list]
 set object_name [list]
 
 foreach object $ancestors_ids {
     set object_type [datamanager::get_object_type -object_id $object]
+    ns_log Notice $object_type
     set object_data_temp [datamanager::get_object_data -object_type $object_type -object_id $object]
     lappend object_data $object_data_temp
     lappend object_name [lindex $object_data_temp 0]
@@ -54,5 +60,28 @@ set object_type [lindex [lindex $object_data 0] 2]
 
 set action "move"
 
-set available_communities [datamanager::get_available_communities -object_type $object_type -action_type $action]
+set departments_temp [db_list_of_lists get_departments_list {}]
+ns_log Notice "departments_antes: $departments_temp"
+set departments [linsert $departments_temp 0 [list All all]]
+#
+#foreach dpt_item $departments_temp {
+#    set departments [lappend $departments $dpt_item]
+# ns_log Notice "departments_despues: $departments"       
+#}
+ns_log Notice "departments_despues: $departments"
+form create department_form -has_submit 1
+
+element create department_form department_key \
+    -label "Departments" \
+    -datatype text \
+    -widget select \
+    -options $departments \
+    -optional \
+    -html {onChange document.department_form.submit()} \
+    -value $department_key
+    
+element create department_form object_id \
+    -datatype text \
+    -widget hidden \
+    -value $object_id
 

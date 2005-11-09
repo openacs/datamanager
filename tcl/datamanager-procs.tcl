@@ -80,10 +80,13 @@ namespace eval datamanager {
         return $object_data
     }
     
+
     ad_proc -public get_available_communities {
         -object_type:required
         -bulk_action_export_vars
         -mode_list
+        -communities_classes
+        -department_key
         {-action_type "move"}
          } {
              Get the list of communities, subgroups or classes where an object can be moved
@@ -144,8 +147,6 @@ foreach element $bulk_action_export_vars {
 set action $action_type
 
 
-
-
 #create the template_list
             template::list::create \
                 -name available_communities \
@@ -156,19 +157,49 @@ set action $action_type
                 -bulk_action_export_vars [concat $my_bulk_action_export_vars action]\
                 -elements $elements
                           
-                set comm_id [dotlrn_community::get_community_id]
+#                set comm_id [dotlrn_community::get_community_id]
+#
+#                set communities_list  [db_list get_list_of_dest_communities {}]
+#                set communities_list_p [list]
+#                
+#                foreach community $communities_list {
+#                    if { [dotlrn::user_can_admin_community_p -community_id $community] } {
+#                        lappend communities_list_p $community
+#                    }                     
+#                }
 
-                set communities_list  [db_list get_list_of_dest_communities {}]
-                set communities_list_p [list]
-                
-                foreach community $communities_list {
-                    if { [dotlrn::user_can_admin_community_p -community_id $community] } {
-                        lappend communities_list_p $community
-                    }                     
-                }
+set comm_id [dotlrn_community::get_community_id]
 
-                
+if {$communities_classes eq "communities"} {
+ 
+        set communities_list  [db_list get_list_of_dest_communities {}]
+        set communities_list_p [list]
+
+        foreach community $communities_list {
+            if { [dotlrn::user_can_admin_community_p -community_id $community] } {
+                lappend communities_list_p $community
+            }
+        }
+} elseif {$communities_classes eq "classes"} {
+        if { $department_key eq "all" } {
+             set communities_list  [db_list get_list_of_all_dest_classes {}]           
+        } else {
+            set communities_list  [db_list get_list_of_dest_classes {}]
+        }
+        set communities_list_p [list]
+
+        foreach community $communities_list {
+            if { [dotlrn::user_can_admin_community_p -community_id $community] } {
+                lappend communities_list_p $community
+            }
+        }
+}
+
+if  {[llength $communities_list_p] eq 0 } {
+    set communities_list_p [list 0] 
+}
                 db_multirow -extend { type } communities get_data_communities {} {
+
                 if {$community_type == "dotlrn_club"} {
                     set type "[_ datamanager.Community]"
                 } elseif {$community_type == "dotlrn_community"} {
@@ -178,11 +209,13 @@ set action $action_type
                 } else  {         
                     set type "[_ datamanager.Class]"
                 }
-            }
-
-                return available_communities
+            } if_no_rows { }
+                return [list available_communities ]
          }
 
+
+
+    
     ad_proc -public get_trash_id {
     } {
         Get the trash identifier 

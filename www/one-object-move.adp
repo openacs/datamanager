@@ -1,6 +1,6 @@
 
 <master>
-<property name="title"><# Move#></property>
+<property name="title">Move selected objects</property>
 <property name="context">@context;noquote@</property>
 <br>
 
@@ -9,14 +9,21 @@
 <form name="input" action="@object_url@" method="get">
 <input type="hidden" name="object_id" value="@object_id@">
 <input type="hidden" name="action" value="@action@">
+<include src="/packages/datamanager/www/available-comm-template" object_type="@object_type@" action_type="@action@" communities_classes="communities">
+</include>
 
-<if @communities:rowcount@ eq 0>
-    <p>#datamanager.Sorry#
-</if>
-<else>
-<listtemplate name="available_communities"></listtemplate>
-<p></p>
-<input type="submit" value="<#Move#>">
-</else>
 
+<input type="submit" value="Move">
+</form>
+
+
+
+<formtemplate id="department_form"></formtemplate>
+
+<form name="input" action="@object_url@" method="get">
+<input type="hidden" name="object_id" value="@object_id@">
+<input type="hidden" name="action" value="@action@">
+<include src="/packages/datamanager/www/available-comm-template" object_type="@object_type@" action_type="@action@" communities_classes="classes" department_key="@department_key@">
+</include>
+<input type="submit" value="Move">
 </form>

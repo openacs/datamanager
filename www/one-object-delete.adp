@@ -1,6 +1,6 @@
 
 <master>
-<property name="title"><# Delete#></property>
+<property name="title">Delete selected objects</property>
 <property name="context">@context;noquote@</property>
 <br>
 

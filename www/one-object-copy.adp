@@ -1,6 +1,6 @@
 
 <master>
-<property name="title"><# Copy#></property>
+<property name="title">Copy selected objects</property>
 <property name="context">@context;noquote@</property>
 <br>
 <p>Copy objects</p><p><b>@object_name@</b></p><p>#datamanager.to#</p>
