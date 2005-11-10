@@ -146,10 +146,12 @@ foreach element $bulk_action_export_vars {
 }
 set action $action_type
 
-
+ns_log Notice "my bulk action export vars : $my_bulk_action_export_vars"
+ns_log Notice "action: $action"
+                set available_name [join [list "available" $communities_classes] "_"]
 #create the template_list
             template::list::create \
-                -name available_communities \
+                -name $available_name \
                 -multirow communities \
                 -key dest_community_id \
                 -actions $actions\
@@ -210,7 +212,8 @@ if  {[llength $communities_list_p] eq 0 } {
                     set type "[_ datamanager.Class]"
                 }
             } if_no_rows { }
-                return [list available_communities ]
+
+                return [list $available_name ]
          }
 
 
