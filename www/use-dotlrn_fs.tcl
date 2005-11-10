@@ -11,7 +11,7 @@ ad_page_contract {
 } -properties {
 }
 
-
+ns_log Notice "dest_community: $dest_community_id"
 set selected_community $dest_community_id
 dotlrn::require_user_admin_community  -community_id [dotlrn_community::get_community_id]
 set context [list []]

@@ -5,17 +5,11 @@
 <br>
 <p>Copy objects</p><p><b>@object_name@</b></p><p>#datamanager.to#</p>
 
+<include src="/packages/datamanager/www/available-comm-template" object_type="@object_type@" action_type="@action@" communities_classes="communities" mode_list="@mode_list@" object_id="@object_id@" mode="@mode@">
+</include>
 
-<if @communities:rowcount@ eq 0>
-    <p>#datamanager.Sorry#
-</if>
-<else>
+<formtemplate id="department_form"></formtemplate>
 
-<if @mode@ not nil>
-    Current copy mode is <b>@mode@</b>
-</if>
-
-<listtemplate name="available_communities"></listtemplate>
-</else>
-
+<include src="/packages/datamanager/www/available-comm-template" object_type="@object_type@" action_type="@action@" communities_classes="classes" mode_list="@mode_list@" object_id="@object_id@" mode="@mode@" department_key=@department_key@>
+</include>
 

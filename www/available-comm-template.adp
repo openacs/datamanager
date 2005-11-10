@@ -1,4 +1,4 @@
 
 
-	<listtemplate name="available_communities"></listtemplate>
+	<listtemplate name="@available_name@"></listtemplate>
 

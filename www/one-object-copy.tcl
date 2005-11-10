@@ -5,6 +5,7 @@ ad_page_contract {
     
 } -query {
     object_id:multiple,notnull
+    {department_key: "all"}
     {mode: ""}
 } -properties {
 }
@@ -73,8 +74,22 @@ if {$object_type eq "dotlrn_forums"} {
     set mode_list {}
 }
 
-set available_communities [datamanager::get_available_communities\
-                                        -object_type $object_type\
-                                        -action_type $action\
-                                        -mode_list $mode_list\
-                                        -bulk_action_export_vars [list [list object_id $object_id] [list mode $mode] ] ]
+set departments_temp [db_list_of_lists get_departments_list {}]
+set departments [linsert $departments_temp 0 [list All all]]
+
+form create department_form -has_submit 1
+
+element create department_form department_key \
+    -label "Departments" \
+    -datatype text \
+    -widget select \
+    -options $departments \
+    -optional \
+    -html {onChange document.department_form.submit()} \
+    -value $department_key
+    
+element create department_form object_id \
+    -datatype text \
+    -widget hidden \
+    -value $object_id
+

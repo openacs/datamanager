@@ -48,7 +48,7 @@ set object_name [list]
 
 foreach object $ancestors_ids {
     set object_type [datamanager::get_object_type -object_id $object]
-    ns_log Notice $object_type
+
     set object_data_temp [datamanager::get_object_data -object_type $object_type -object_id $object]
     lappend object_data $object_data_temp
     lappend object_name [lindex $object_data_temp 0]
@@ -61,14 +61,10 @@ set object_type [lindex [lindex $object_data 0] 2]
 set action "move"
 
 set departments_temp [db_list_of_lists get_departments_list {}]
-ns_log Notice "departments_antes: $departments_temp"
+
 set departments [linsert $departments_temp 0 [list All all]]
 #
-#foreach dpt_item $departments_temp {
-#    set departments [lappend $departments $dpt_item]
-# ns_log Notice "departments_despues: $departments"       
-#}
-ns_log Notice "departments_despues: $departments"
+
 form create department_form -has_submit 1
 
 element create department_form department_key \
