@@ -26,36 +26,3 @@ set root_folder_id [fs::get_root_folder -package_id $package_id]
 set supported_types_list {Assessments Faqs Forums Folders News Static-Portlet}
 set next_url select-objects
 
-#template::list::create \
-#    -name objects \
-#    -multirow objects \
-#    -elements {
-#        name {
-#            label {[_ datamanager.Name]]}
-#      }
-#        object_type {
-#            label {[_ datamanager.Type]}
-#      }
-#        move {
-#            display_template {[_ datamanager.Move]}        
-#    	    link_url_col move_object_url
-#        }
-#        copy {
-#            display_template {[_ datamanager.Copy]}
-#    	    link_url_col copy_object_url
-#        }
-#        delete { 
-#            display_template {[_ datamanager.Delete]}
-#    	    link_url_col delete_object_url
-#        }
-#
-#    }
-#db_multirow -extend { move_object_url
-#                      copy_object_url
-#                      delete_object_url                         
-#} objects datamanager::select_objects {
-#} {
-#    set move_object_url [export_vars -base one-object-move { object_id }]
-#    set copy_object_url [export_vars -base one-object-copy { object_id }]       
-#    set delete_object_url [export_vars -base one-object-delete { object_id }]       
-#}
