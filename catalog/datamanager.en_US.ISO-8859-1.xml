@@ -7,12 +7,16 @@
   <msg key="Community">Community</msg>
   <msg key="Confirmation">Confirmation</msg>
   <msg key="Copy">Copy</msg>
+  <msg key="Copy_Objects">Copy Objects</msg>
   <msg key="Delete">Delete</msg>
   <msg key="Move">Move</msg>
   <msg key="Move_1">Move object</msg>
+  <msg key="Move_Object">Move Object</msg>
+  <msg key="Move_Objects">Move Objects</msg>
   <msg key="Name">Name</msg>
   <msg key="pretty_name">Data Manager</msg>
   <msg key="Selected">Selected</msg>
+  <msg key="Send_to_Trash">Send to Trash</msg>
   <msg key="Sorry">Sorry, you can not move this object</msg>
   <msg key="Subgroup_of">Subgroup of</msg>
   <msg key="to">to community</msg>
