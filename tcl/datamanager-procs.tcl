@@ -4,19 +4,7 @@ ad_library {
     @author Luis de la Fuente (lfuente@it.uc3m.es)
     @creation-date 14 June 2005
 }
- 
 namespace eval datamanager {
-
-# ejemplo de uso de ad_proc    
-#    ad_proc -public add_self_to_page {
-#	{-portal_id:required}
-#	{-package_id:required}
-#    } {
-#	Adds a static PE to the given page
-#    } {
-#        ns_log notice "static_portlet::add_self_to_page - Don't call me. Use static_portal_content:: instead"
-#        error
-#    }
 
     ad_proc -public get_object_type {
         -object_id:required
@@ -73,13 +61,13 @@ namespace eval datamanager {
             default {
                 set object_name "[_ datamanager._Not]"
                 set object_url ""
-                set object_type ""                  
+                set object_type ""
             }
         }
         set object_data [list $object_name $object_url $object_type]
         return $object_data
     }
-    
+
 
     ad_proc -public get_available_communities {
         -object_type:required
@@ -108,7 +96,6 @@ if {$action_type eq "move"} {
                     dest_community_id {
                         hide_p 1
                     }
-                    
                     community_type {
                         label {[_ datamanager.Type]}
                         display_col type
@@ -125,7 +112,6 @@ if {$action_type eq "move"} {
                     dest_community_id {
                         hide_p 1
                     }
-                    
                     community_type {
                         label {[_ datamanager.Type]}
                         display_col type
@@ -149,6 +135,7 @@ set action $action_type
 ns_log Notice "my bulk action export vars : $my_bulk_action_export_vars"
 ns_log Notice "action: $action"
                 set available_name [join [list "available" $communities_classes] "_"]
+
 #create the template_list
             template::list::create \
                 -name $available_name \
@@ -158,22 +145,10 @@ ns_log Notice "action: $action"
                 -bulk_actions $bulk_actions \
                 -bulk_action_export_vars [concat $my_bulk_action_export_vars action]\
                 -elements $elements
-                          
-#                set comm_id [dotlrn_community::get_community_id]
-#
-#                set communities_list  [db_list get_list_of_dest_communities {}]
-#                set communities_list_p [list]
-#                
-#                foreach community $communities_list {
-#                    if { [dotlrn::user_can_admin_community_p -community_id $community] } {
-#                        lappend communities_list_p $community
-#                    }                     
-#                }
 
 set comm_id [dotlrn_community::get_community_id]
 
 if {$communities_classes eq "communities"} {
- 
         set communities_list  [db_list get_list_of_dest_communities {}]
         set communities_list_p [list]
 
@@ -184,7 +159,7 @@ if {$communities_classes eq "communities"} {
         }
 } elseif {$communities_classes eq "classes"} {
         if { $department_key eq "all" } {
-             set communities_list  [db_list get_list_of_all_dest_classes {}]           
+             set communities_list  [db_list get_list_of_all_dest_classes {}]
         } else {
             set communities_list  [db_list get_list_of_dest_classes {}]
         }
@@ -216,13 +191,10 @@ if  {[llength $communities_list_p] eq 0 } {
                 return [list $available_name ]
          }
 
-
-
-    
     ad_proc -public get_trash_id {
     } {
         Get the trash identifier 
-    } { 
+    } {
         db_1row get_id {}
         return $trash_id
     }
@@ -235,9 +207,8 @@ if  {[llength $communities_list_p] eq 0 } {
 
         if {[info exist community_id] == 0 } {
            set community_id [dotlrn_community::get_community_id]
-        }         
-        
+        }
         db_1row get_package_id {}
         return $trash_package_id
-    }   
+    }
 }
