@@ -8,7 +8,7 @@ ad_page_contract {
     {department_key: "all"}
 } -properties {
 }
-set context [list [_ datamanager.Object_Move]]
+set context [list [_ datamanager.Move_Objects]]
 set title "[_ datamanager.Choose_Destination]"    
 
 

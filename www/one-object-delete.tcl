@@ -9,7 +9,7 @@ ad_page_contract {
 }
 
 
-set context [list [_ datamanager.Object_Delete]]
+set context [list [_ datamanager.Delete_Objects]]
 set title "Delete confirmation"
 
 #only administrator must be allowed to enter this page

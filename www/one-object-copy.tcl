@@ -11,7 +11,7 @@ ad_page_contract {
 }
 
 
-set context [list [_ datamanager.Object_Copy]]
+set context [list [_ datamanager.Copy_Objects]]
 set title "[_ datamanager.Choose_Destination]"    
 
 #only administrator or professor must be allowed to enter this page
