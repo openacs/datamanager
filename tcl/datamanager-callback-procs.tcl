@@ -62,6 +62,7 @@ ad_proc -public -callback datamanager::delete_new {
 ad_proc -public -callback datamanager::move_static {
      -object_id:required
      -selected_community:required
+     -self_community
 } {
 }
 
