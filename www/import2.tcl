@@ -28,8 +28,15 @@ if {[info exist sufix] eq 0} {
 #################################
 #         FAQS                  #
 #################################
+
+# First we have to check that faq portlet is instancied
+set faq_pid [datamanager::get_faq_package_id -community_id $this_comm_id]
 set faqNodes [$root selectNodes /items/faq]
 set countfaqs [llength $faqNodes]
+
+if {$faq_pid < 0} {
+    set faq_info "Debes añadir primero el paquete FAQ desde panel de control"
+} else {
 foreach faqNode $faqNodes {
   set faq_name          "[$faqNode selectNodes {string(name)}]$sufix"
   set faq_separate_p    [$faqNode selectNodes {string(separate_p)}]
@@ -77,6 +84,7 @@ foreach faqNode $faqNodes {
       }]
     }
 }
+}
 lappend results [format "    Total faqs imported=%s" $countfaqs]
 
 #################################
@@ -88,7 +96,10 @@ foreach staticNode $staticNodes {
   set pretty_name       "[$staticNode selectNodes {string(pretty_name)}]$sufix"
   set body              [$staticNode selectNodes {string(body)}]
   set format            [$staticNode selectNodes {string(format)}]
-
+  set portlet_exist [db_string get_portlet "select content_id from static_portal_content where \
+  pretty_name = :pretty_name and package_id = :this_comm_id" -default 0]
+  
+ if {$portlet_exist eq 0} {
   db_transaction {
     set item_id [static_portal_content::new \
                          -package_id $package_id  \
@@ -100,6 +111,7 @@ foreach staticNode $staticNodes {
                          -package_id $package_id \
                          -content_id $item_id]
   }
+ }
 }
 lappend results [format "    Total static portlets imported=%s" $countstatics]
 
