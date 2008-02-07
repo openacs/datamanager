@@ -50,7 +50,6 @@
            fo.enabled_p,
            fo.thread_count,
            fo.approved_thread_count,
-           fo.forums_forums,
            fo.last_post,
            fo.autosubscribe_p
     FROM  acs_objects as ao,
