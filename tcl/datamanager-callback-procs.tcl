@@ -215,8 +215,8 @@ ad_proc -public -callback datamanager::export_acs_user -impl datamanager {
     lappend lista "<bio><!\[CDATA\[$bio\]\]></bio>"    
         
         ####
-        ## Geting the photo
-        #### 
+        ## Getting the photo
+        ####
         
         # get the live revision id of the user portrait
         if {![db_0or1row select_user_photo_revision {*SQL*}]} {
