@@ -231,7 +231,7 @@ ad_proc -public tmpfn {} {
         Get the trash packageidentifier 
     } { 
 
-        if {[info exist community_id] == 0 } {
+        if {[info exists community_id] == 0 } {
            set community_id [dotlrn_community::get_community_id]
         }
         db_1row get_package_id {}

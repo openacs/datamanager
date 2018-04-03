@@ -15,9 +15,9 @@ set error_url "error.tcl"
 set ok_url "ok.tcl"
 set items_ok 0
 
-if {[info exist sufix] eq 0} {
+if {[info exists sufix] eq 0} {
     set sufix ""
-}     
+}
 
 regsub -all {\{} $object_id "" object_id
 regsub -all {\}} $object_id "" object_id

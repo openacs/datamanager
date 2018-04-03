@@ -21,7 +21,7 @@ set conttotal 0
 set contbien 0
 set contmal 0 
 
-if {[info exist sufix] eq 0} {
+if {[info exists sufix] eq 0} {
   set sufix ""
 }
     

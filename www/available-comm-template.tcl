@@ -3,7 +3,7 @@ ad_page_contract {
 } -properties {
 }
 
-if {[info exist department_key] eq 0} {
+if {[info exists department_key] eq 0} {
     set department_key ""
 } 
     set available_name [join [list "available" $communities_classes] "_"]
