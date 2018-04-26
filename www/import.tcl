@@ -3,7 +3,7 @@ ad_page_contract {
   {mode:optional ""}
 } -properties {
 }
-set context [list]
+set context {}
 set community_id [dotlrn_community::get_community_id]
 #only administrator or professor must be allowed to enter this page
 dotlrn::require_user_admin_community  -community_id $community_id

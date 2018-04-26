@@ -2,7 +2,7 @@ ad_page_contract {
 } -query {
 } -properties {
 }
-set context [list]
+set context {}
 set community_id [dotlrn_community::get_community_id]
 
 #dotlrn::require_user_admin_community  -community_id $community_id
