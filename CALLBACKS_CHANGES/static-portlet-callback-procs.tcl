@@ -67,7 +67,7 @@ ad_proc -public -callback datamanager::export_static -impl datamanager {
 } {
     Export a static portlet
 } {
-  set lista {}
+  set lista [list]
   db_1row select_static {}
 
   lappend lista "<static>"
