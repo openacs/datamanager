@@ -121,7 +121,7 @@ puts $XML_OUTPUT "\n</items>"
 lappend results ""
 lappend results [format "  <B>Total objects exported</B>=%s" $n_exported]
 if {[catch {close $XML_OUTPUT} err]} {
-  lappend results [format "Error closing xml file=%s" $err]
+  lappend results [format "Error closing XML file=%s" $err]
 }
 
 set l_time [ns_localtime]

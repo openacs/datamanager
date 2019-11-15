@@ -20,7 +20,7 @@ ad_proc -public -callback datamanager::move_faq -impl datamanager {
         db_dml update_faqs_q_and_a {}
         db_dml update_faqs {}
     } on_error {
-        ad_return_error "Database error" "A database error occured:<pre>$errmsg</pre>"
+        ad_return_error "Database error" "A database error occurred:<pre>$errmsg</pre>"
     }
 }
 
@@ -36,7 +36,7 @@ ad_proc -public -callback datamanager::delete_faq -impl datamanager {
         db_dml del_update_faqs_q_and_a {}
         db_dml del_update_faqs {}
     } on_error {
-        ad_return_error "Database error" "A database error occured"
+        ad_return_error "Database error" "A database error occurred"
     }
 }
 
