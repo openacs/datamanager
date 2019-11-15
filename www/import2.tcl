@@ -13,7 +13,7 @@ set package_id $this_comm_id
 set xml_filename ${upload_file.tmpfile}
 set fd [open $xml_filename r] ; set xml [read $fd] ; close $fd
 #set doc [dom parse $xml]
-dom parse [::tDOM::xmlReadFile $xml_filename] doc        
+dom parse [::tdom::xmlReadFile $xml_filename] doc        
 set root [$doc documentElement]
 
 # check variables
@@ -35,7 +35,7 @@ set faqNodes [$root selectNodes /items/faq]
 set countfaqs [llength $faqNodes]
 
 if {$faq_pid < 0} {
-    set faq_info "Debes añadir primero el paquete FAQ desde panel de control"
+    set faq_info "Debes aÃ±adir primero el paquete FAQ desde panel de control"
 } else {
 foreach faqNode $faqNodes {
   set faq_name          "[$faqNode selectNodes {string(name)}]$sufix"
@@ -47,8 +47,8 @@ foreach faqNode $faqNodes {
   
   # obtenemos el user_id del creation_user
   set faq_creation_user [db_string get_user_id "select user_id from users where username = :faq_username"]
-  # Obtenemos el context_id según la conexión.
-  # Para el caso de una comunidad habrá que psarle el community_id
+  # Obtenemos el context_id segÃºn la conexiÃ³n.
+  # Para el caso de una comunidad habrÃ¡ que psarle el community_id
   set faq_context_id [datamanager::get_faq_package_id -community_id $this_comm_id] 
   set new_faq_id [db_exec_plsql create_faq {
            select faq__new_faq (

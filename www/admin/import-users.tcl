@@ -13,7 +13,7 @@ set package_id $this_comm_id
 set xml_filename ${upload_file.tmpfile}
 set fd [open $xml_filename r] ; set xml [read $fd] ; close $fd
 #set doc [dom parse $xml]
-dom parse [::tDOM::xmlReadFile $xml_filename] doc        
+dom parse [::tdom::xmlReadFile $xml_filename] doc        
 set root [$doc documentElement]
 
 # check variables
@@ -204,7 +204,7 @@ foreach userNode $userNodes {
   set conttotal [expr $conttotal + 1]
          
 }
- #fin importación usuarios      
+ #fin importaciÃ³n usuarios      
 
 lappend results [format "    Total users =%s" $conttotal]
 lappend results [format "    Total users imported =%s" $contbien]

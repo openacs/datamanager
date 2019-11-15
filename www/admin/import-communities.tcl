@@ -15,7 +15,7 @@ lappend l_results {"COMUNIDAD" "ID" "NAME"} {"USERS" "NUM" "ADDED" "EXIST" "BAD"
 set xml_filename ${upload_file.tmpfile}
 set fd [open $xml_filename r] ; set xml [read $fd] ; close $fd
 #set doc [dom parse $xml]
-dom parse [::tDOM::xmlReadFile $xml_filename] doc        
+dom parse [::tdom::xmlReadFile $xml_filename] doc        
 set root [$doc documentElement]
 
 # check variables
@@ -81,7 +81,7 @@ foreach ClubNode $ClubNodes {
                 
                 set user_id [db_string user_id "select user_id from users where username = :username and authority_id = :authority_id" -default "-300"] 
                 if {$user_id ne -300} {
-                        # Añadimos el usuario $user_id a la comunidad
+                        # AÃ±adimos el usuario $user_id a la comunidad
                         #dotlrn_community::member_p comm user
                         if {![dotlrn_community::member_p $community_id $user_id]} {
                                 dotlrn_community::add_user -rel_type $rel_type $community_id $user_id
@@ -218,8 +218,8 @@ foreach ClubNode $ClubNodes {
   
         # obtenemos el user_id del creation_user
         set faq_creation_user [db_string get_user_id "select user_id from users where username = :faq_username"]
-        # Obtenemos el context_id según la conexión.
-        # Para el caso de una comunidad habrá que psarle el community_id
+        # Obtenemos el context_id segÃºn la conexiÃ³n.
+        # Para el caso de una comunidad habrÃ¡ que psarle el community_id
         set faq_context_id [datamanager::get_faq_package_id -community_id $community_id] 
                 if {$faq_context_id > 0} {
         set new_faq_id [db_exec_plsql create_faq {
